@@ -1,0 +1,115 @@
+import tkinter as tk
+import random
+
+# Diccionarios de imperios
+imperios_africa = {
+    "República Árabe Unida": "Egipto",
+    "Imperio de Mali": "Mali",
+    "Imperio de Ghana": "Ghana",
+    "Imperio Songhai": "Mali, Níger",
+    "Reino de Aksum": "Etiopía, Eritrea",
+    "Imperio Almohade": "Marruecos",
+    "Imperio Kanem-Bornu": "Níger, Nigeria, Chad",
+    "Reino de Dahomey": "Benín",
+    "Imperio de Benín": "Nigeria"
+}
+
+imperios_europa = {
+    "Imperio Bizantino": "Turquía, Grecia",
+    "Sacro Imperio Romano Germánico": "Alemania, Austria, Italia",
+    "Imperio Austrohúngaro": "Austria, Hungría",
+    "Imperio Español": "España",
+    "Imperio Británico": "Reino Unido",
+    "Imperio Ruso": "Rusia",
+    "Imperio Otomano": "Turquía",
+    "Imperio Portugués": "Portugal",
+    "Imperio Francés": "Francia",
+    "Imperio Carolingio": "Francia, Alemania, Italia"
+}
+
+imperios_asia = {
+    "Imperio Mongol": "Mongolia",
+    "Imperio Persa Aqueménida": "Irán",
+    "Imperio Japonés": "Japón",
+    "Imperio Qing": "China",
+    "Imperio Tang": "China",
+    "Imperio Seléucida": "Grecia, Asia Menor",
+    "Imperio Maurya": "India",
+    "Imperio Gupta": "India",
+    "Imperio Timúrida": "Uzbekistán, Asia Central",
+}
+
+imperios_america = {
+    "Imperio Azteca": "México",
+    "Imperio Inca": "Perú",
+    "Imperio Mexicano": "México",
+    "Civilización Maya": "México, Guatemala",
+    "Imperio Chimú": "Perú",
+    "Imperio Muisca": "Colombia",
+    "Confederación Haudenosaunee": "Estados Unidos, Canadá"
+}
+
+# Función para generar un imperio aleatorio
+def generar_imperio():
+    continente = random.randint(1, 4)
+    if continente == 1:
+        imperio = random.choice(list(imperios_africa.keys()))
+        paises = imperios_africa[imperio]
+        origen = "África"
+    elif continente == 2:
+        imperio = random.choice(list(imperios_europa.keys()))
+        paises = imperios_europa[imperio]
+        origen = "Europa"
+    elif continente == 3:
+        imperio = random.choice(list(imperios_asia.keys()))
+        paises = imperios_asia[imperio]
+        origen = "Asia"
+    else:
+        imperio = random.choice(list(imperios_america.keys()))
+        paises = imperios_america[imperio]
+        origen = "América"
+    
+    resultado_text.set(f"🌍 Continente: {origen}\n🏛 Imperio: {imperio}\n📍 Estuvo en: {paises}")
+
+# Crear ventana
+ventana = tk.Tk()
+ventana.title("Simulador de Imperios")
+ventana.geometry("462x231")
+ventana.configure(bg='#1E4963')
+
+# Variable de resultado
+resultado_text = tk.StringVar()
+resultado_label = tk.Label(
+    ventana,
+    textvariable=resultado_text,
+    justify="left",
+    font=("TeleVision", 15),
+    fg="white",
+    bg="#1E4963"
+)
+resultado_label.pack(pady=20)
+
+# Botón para generar imperio
+boton = tk.Button(
+    ventana,
+    text="Generar imperio",
+    command=generar_imperio,
+    font=("TeleVision", 15),
+    bg="#2E8BC0",
+    fg="white"
+)
+boton.pack(pady=10)
+
+# Botón para salir
+salir_btn = tk.Button(
+    ventana,
+    text="Salir",
+    command=ventana.destroy,
+    font=("TeleVision", 15),
+    bg="#D64545",
+    fg="white"
+)
+salir_btn.pack(pady=10)
+
+# Iniciar la interfaz
+ventana.mainloop()
