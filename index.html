@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Imperios</title>
+  <style>
+    body {
+      background-color: #1E4963;
+      color: white;
+      font-family: 'TeleVision', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .button {
+      font-size: 15pt;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #generar {
+      background-color: #2E8BC0;
+      color: white;
+    }
+    #salir {
+      background-color: #D64545;
+      color: white;
+    }
+    #resultado {
+      font-size: 15pt;
+      white-space: pre-line;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="resultado">🌍 Continente:\n🏛 Imperio:\n📍 Estuvo en:</div>
+  <button id="generar" class="button">Generar imperio</button>
+  <button id="salir" class="button">Salir</button>
+
+  <script>
+    const imperios_africa = {
+      "República Árabe Unida": "Egipto",
+      "Imperio de Mali": "Mali",
+      "Imperio de Ghana": "Ghana",
+      "Imperio Songhai": "Mali, Níger",
+      "Reino de Aksum": "Etiopía, Eritrea",
+      "Imperio Almohade": "Marruecos",
+      "Imperio Kanem-Bornu": "Níger, Nigeria, Chad",
+      "Reino de Dahomey": "Benín",
+      "Imperio de Benín": "Nigeria"
+    };
+
+    const imperios_europa = {
+      "Imperio Bizantino": "Turquía, Grecia",
+      "Sacro Imperio Romano Germánico": "Alemania, Austria, Italia",
+      "Imperio Austrohúngaro": "Austria, Hungría",
+      "Imperio Español": "España",
+      "Imperio Británico": "Reino Unido",
+      "Imperio Ruso": "Rusia",
+      "Imperio Otomano": "Turquía",
+      "Imperio Portugués": "Portugal",
+      "Imperio Francés": "Francia",
+      "Imperio Carolingio": "Francia, Alemania, Italia"
+    };
+
+    const imperios_asia = {
+      "Imperio Mongol": "Mongolia",
+      "Imperio Persa Aqueménida": "Irán",
+      "Imperio Japonés": "Japón",
+      "Imperio Qing": "China",
+      "Imperio Tang": "China",
+      "Imperio Seléucida": "Grecia, Asia Menor",
+      "Imperio Maurya": "India",
+      "Imperio Gupta": "India",
+      "Imperio Timúrida": "Uzbekistán, Asia Central"
+    };
+
+    const imperios_america = {
+      "Imperio Azteca": "México",
+      "Imperio Inca": "Perú",
+      "Imperio Mexicano": "México",
+      "Civilización Maya": "México, Guatemala",
+      "Imperio Chimú": "Perú",
+      "Imperio Muisca": "Colombia",
+      "Confederación Haudenosaunee": "Estados Unidos, Canadá"
+    };
+
+    function generarImperio() {
+      const continentes = [
+        { nombre: "África", imperios: imperios_africa },
+        { nombre: "Europa", imperios: imperios_europa },
+        { nombre: "Asia", imperios: imperios_asia },
+        { nombre: "América", imperios: imperios_america }
+      ];
+
+      const seleccion = continentes[Math.floor(Math.random() * continentes.length)];
+      const claves = Object.keys(seleccion.imperios);
+      const imperio = claves[Math.floor(Math.random() * claves.length)];
+      const paises = seleccion.imperios[imperio];
+
+      document.getElementById("resultado").textContent =
+        `🌍 Continente: ${seleccion.nombre}\n🏛 Imperio: ${imperio}\n📍 Estuvo en: ${paises}`;
+    }
+
+    document.getElementById("generar").onclick = generarImperio;
+    document.getElementById("salir").onclick = () => window.close();
+  </script>
+
+</body>
+</html>
