@@ -2,15 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Imperios</title>
   <style>
+    @font-face {
+      font-family: 'CocogooseProTrial Darkmode';
+      src: local('CocogooseProTrial Darkmode'), sans-serif;
+    }
+
     body {
       background-color: #1E4963;
       color: white;
       font-family: 'CocogooseProTrial Darkmode', sans-serif;
       text-align: center;
-      padding-top: 50px;
+      padding: 50px 20px;
     }
+
     .button {
       font-size: 20pt;
       padding: 10px 20px;
@@ -19,23 +26,33 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
     #generar {
       background-color: #2E8BC0;
       color: white;
     }
+
     #salir {
       background-color: #D64545;
       color: white;
     }
+
     #resultado {
       font-size: 24pt;
       white-space: pre-line;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    #emojis span {
+      font-size: 28pt;
+      display: inline-block;
+      width: 2em;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-
 
   <div id="resultado">🌍 Continente:🏛 Imperio:📍 Estuvo en:</div>
   <button id="generar" class="button">Generar imperio</button>
@@ -43,50 +60,43 @@
 
   <script>
     const imperios_africa = {
-      "República Árabe Unida": "Egipto",
-      "Imperio de Mali": "Mali",
-      "Imperio de Ghana": "Ghana",
-      "Imperio Songhai": "Mali, Níger",
-      "Reino de Aksum": "Etiopía, Eritrea",
-      "Imperio Almohade": "Marruecos",
-      "Imperio Kanem-Bornu": "Níger, Nigeria, Chad",
-      "Reino de Dahomey": "Benín",
-      "Imperio de Benín": "Nigeria"
+      "Zaire": ["República Democrática del Congo"],
+      "Imperio Songhai": ["Mali", "Níger", "Nigeria", "Burkina Faso", "Senegal", "Guinea"],
+      "Imperio Kanem-Bornu": ["Chad", "Nigeria", "Libia", "Níger", "Camerún"],
+      "Imperio Dahomey": ["Benín"],
+      "Imperio Aksuum": ["Etiopía", "Eritrea", "Sudán", "Djibouti", "Yemen"],
+      "Imperio Almohade": ["Marruecos", "Argelia", "Túnez", "Libia", "Mauritania", "Mali (norte)", "España (sur)", "Portugal (sur)"]
     };
 
     const imperios_europa = {
-      "Imperio Bizantino": "Turquía, Grecia",
-      "Sacro Imperio Romano Germánico": "Alemania, Austria, Italia",
-      "Imperio Austrohúngaro": "Austria, Hungría",
-      "Imperio Español": "España",
-      "Imperio Británico": "Reino Unido",
-      "Imperio Ruso": "Rusia",
-      "Imperio Otomano": "Turquía",
-      "Imperio Portugués": "Portugal",
-      "Imperio Francés": "Francia",
-      "Imperio Carolingio": "Francia, Alemania, Italia"
+      "Sacro Imperio Romano Germánico": ["Alemania", "Austria", "Suiza", "Luxemburgo", "Liechtenstein", "Países Bajos", "Bélgica", "República Checa", "Eslovenia", "Francia (este)", "Italia (norte)", "Polonia (oeste)"],
+      "Imperio Carolingio": ["Francia", "Bélgica", "Países Bajos", "Alemania", "Suiza", "Austria", "Italia (norte)", "España (noreste)"],
+      "Imperio Portugués": ["Portugal", "Brasil", "Angola", "Mozambique", "Guinea-Bissau", "Cabo Verde", "Santo Tomé y Príncipe", "Timor Oriental", "Goa (India)", "Macau (China)", "Malaca (Malasia)", "Ceuta (Marruecos)"],
+      "Imperio Francés": ["Francia", "Canadá", "Guadalupe", "Martinica", "Saint-Barthélemy", "Saint-Martin", "Haití", "Guayana Francesa", "Argelia", "Senegal", "Mali", "Níger", "Chad", "Madagascar", "Vietnam", "Laos", "Camboya", "Siria", "Líbano", "Túnez", "Marruecos", "Djibouti", "Comoras", "Nueva Caledonia", "Polinesia Francesa"],
+      "Imperio Español": ["España", "Portugal (1580-1640)", "México", "Guatemala", "El Salvador", "Honduras", "Nicaragua", "Costa Rica", "Panamá", "Colombia", "Venezuela", "Ecuador", "Perú", "Bolivia", "Paraguay", "Chile", "Argentina", "Uruguay", "Cuba", "Puerto Rico", "Filipinas", "Guinea Ecuatorial", "Marruecos (Ceuta y Melilla)", "Sahara Occidental"],
+      "Imperio Austrohúngaro": ["Austria", "Hungría", "República Checa", "Eslovaquia", "Eslovenia", "Croacia", "Bosnia y Herzegovina", "Serbia", "Montenegro", "Italia (norte)", "Rumanía (oeste)", "Polonia (sur)", "Ucrania (oeste)"]
     };
 
     const imperios_asia = {
-      "Imperio Mongol": "Mongolia",
-      "Imperio Persa Aqueménida": "Irán",
-      "Imperio Japonés": "Japón",
-      "Imperio Qing": "China",
-      "Imperio Tang": "China",
-      "Imperio Seléucida": "Grecia, Asia Menor",
-      "Imperio Maurya": "India",
-      "Imperio Gupta": "India",
-      "Imperio Timúrida": "Uzbekistán, Asia Central"
+      "Imperio Timúrida": ["Uzbekistán", "Turkmenistán", "Tayikistán", "Kazajistán", "Irán", "Irak", "Kuwait", "Afganistán", "Pakistán", "India (norte)", "Siria", "Turquía", "Rusia (sur)"],
+      "Imperio Tang": ["China", "Mongolia", "Vietnam", "Corea (parte)", "Kazajistán (parte)", "Kirguistán (parte)", "Tayikistán (parte)"],
+      "Imperio Seléucida": ["Irak", "Irán", "Afganistán", "Siria", "Líbano", "Kuwait", "Turkmenistán", "Pakistán", "Anatolia (parte de Turquía)", "Pamir (parte de Tayikistán)"],
+      "Imperio Ruso": ["Rusia", "Ucrania", "Bielorrusia", "Polonia", "Finlandia", "Estonia", "Letonia", "Lituania", "Moldavia", "Kazajistán", "Uzbekistán", "Turkmenistán", "Kirguistán", "Tayikistán", "Georgia", "Armenia", "Azerbaiyán", "Alaska (hasta 1867)"],
+      "Imperio Otomano": ["Turquía", "Grecia", "Bulgaria", "Serbia", "Bosnia y Herzegovina", "Montenegro", "Kosovo", "Macedonia del Norte", "Albania", "Rumania", "Hungría", "Croacia", "Eslovenia", "Eslovaquia", "Moldavia", "Chipre", "Egipto", "Libia", "Túnez", "Argelia", "Sudán", "Arabia Saudita", "Siria", "Líbano", "Irak", "Jordania", "Palestina", "Israel"],
+      "Imperio Mongol": ["Mongolia", "China", "Corea", "Kazajistán", "Kirguistán", "Uzbekistán", "Turkmenistán", "Tayikistán", "Irán", "Irak", "Afganistán", "Pakistán", "India (norte)", "Rusia (sur)", "Turquía (parte)", "Siria"],
+      "Imperio Japonés": ["Japón", "Corea del Sur", "Corea del Norte", "Taiwán", "China (parte)", "Manchuria", "Filipinas", "Indonesia", "Birmania", "Tailandia (parte)", "Vietnam", "Camboya", "Laos", "Malasia", "Papúa Nueva Guinea", "Islas del Pacífico"],
+      "Imperio Gupta": ["India (norte)", "Pakistán", "Bangladés", "Nepal"],
+      "Imperio Bizantino": ["Turquía", "Grecia", "Italia (sur)", "España (parte)", "Egipto", "Libia", "Túnez", "Argelia", "Marruecos", "Siria", "Líbano", "Israel", "Palestina", "Jordania", "Chipre", "Bulgaria", "Serbia", "Rumania", "Macedonia del Norte", "Albania"],
+      "Imperio Persa Aqueménida": ["Irán", "Irak", "Turkmenistán", "Afganistán", "Uzbekistán", "Turquía", "Rusia (parte)", "Chipre", "Siria", "Líbano", "Palestina", "Grecia", "Bulgaria", "Ucrania", "Rumania", "Arabia Saudita", "India (parte)", "Jordania", "Egipto"]
     };
 
     const imperios_america = {
-      "Imperio Azteca": "México",
-      "Imperio Inca": "Perú",
-      "Imperio Mexicano": "México",
-      "Civilización Maya": "México, Guatemala",
-      "Imperio Chimú": "Perú",
-      "Imperio Muisca": "Colombia",
-      "Confederación Haudenosaunee": "Estados Unidos, Canadá"
+      "Imperio Inca": ["Perú", "Ecuador", "Bolivia", "Chile", "Argentina", "Colombia"],
+      "Imperio Muisca": ["Colombia"],
+      "Imperio Mexicano": ["México", "Guatemala", "Honduras", "El Salvador", "Nicaragua", "Costa Rica"],
+      "Imperio Azteca": ["México", "Guatemala", "Belice", "El Salvador", "Honduras"],
+      "Imperio Maya": ["México", "Guatemala", "Belice", "Honduras", "El Salvador"],
+      "Confederación Haudenosaunee": ["Estados Unidos", "Canadá"]
     };
 
     function generarImperio() {
@@ -100,14 +110,17 @@
       const seleccion = continentes[Math.floor(Math.random() * continentes.length)];
       const claves = Object.keys(seleccion.imperios);
       const imperio = claves[Math.floor(Math.random() * claves.length)];
-      const paises = seleccion.imperios[imperio];
+      const paises = seleccion.imperios[imperio].join(", ");
 
       document.getElementById("resultado").textContent =
         `🌍 Continente: ${seleccion.nombre}\n🏛 Imperio: ${imperio}\n📍 Estuvo en: ${paises}`;
     }
 
     document.getElementById("generar").onclick = generarImperio;
-    document.getElementById("salir").onclick = () => window.close();
+
+    document.getElementById("salir").onclick = () => {
+      document.body.innerHTML = "<h1 style='color:white;font-size:28pt;'>¡Gracias por jugar! 🏁</h1>";
+    };
   </script>
 
 </body>
