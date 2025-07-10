@@ -10,38 +10,30 @@
       src: local('CocogooseProTrial Darkmode'), sans-serif;
     }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background-color: #1E4963;
-      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #51D3FE, #2F9157);
+      color: #373A39;
       font-family: 'CocogooseProTrial Darkmode', sans-serif;
       text-align: center;
-      padding: 50px 20px;
-    }
-
-    .button {
-      font-size: 20pt;
-      padding: 10px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #generar {
-      background-color: #2E8BC0;
-      color: white;
-    }
-
-    #salir {
-      background-color: #D64545;
-      color: white;
+      padding: 40px 20px;
     }
 
     #resultado {
-      font-size: 24pt;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       white-space: pre-line;
-      margin-bottom: 30px;
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-bottom: 40px;
     }
 
     #emojis span {
@@ -50,6 +42,34 @@
       width: 2em;
       text-align: center;
     }
+
+    .button {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #generar {
+      background-color: #2E8BC0;
+      color: white;
+    }
+
+    #generar:hover {
+      background-color: #2672a3;
+    }
+
+    #salir {
+      background-color: #D64545;
+      color: white;
+    }
+
+    #salir:hover {
+      background-color: #b73b3b;
+    }
   </style>
 </head>
 <body>
@@ -57,7 +77,7 @@
   <div id="resultado">🌍 Continente:🏛 Imperio:📍 Estuvo en:</div>
   <button id="generar" class="button">Generar imperio</button>
   <button id="salir" class="button">Salir</button>
-
+  
   <script>
     const imperios_africa = {
       "Zaire": ["República Democrática del Congo"],
@@ -81,7 +101,7 @@
       "Imperio Timúrida": ["Uzbekistán", "Turkmenistán", "Tayikistán", "Kazajistán", "Irán", "Irak", "Kuwait", "Afganistán", "Pakistán", "India (norte)", "Siria", "Turquía", "Rusia (sur)"],
       "Imperio Tang": ["China", "Mongolia", "Vietnam", "Corea (parte)", "Kazajistán (parte)", "Kirguistán (parte)", "Tayikistán (parte)"],
       "Imperio Seléucida": ["Irak", "Irán", "Afganistán", "Siria", "Líbano", "Kuwait", "Turkmenistán", "Pakistán", "Anatolia (parte de Turquía)", "Pamir (parte de Tayikistán)"],
-      "Imperio Ruso": ["Rusia", "Ucrania", "Bielorrusia", "Polonia", "Finlandia", "Estonia", "Letonia", "Lituania", "Moldavia", "Kazajistán", "Uzbekistán", "Turkmenistán", "Kirguistán", "Tayikistán", "Georgia", "Armenia", "Azerbaiyán", "Alaska (hasta 1867)"],
+      "Imperio Ruso": ["Rusia", "Ucrania", "Bielorrusia", "Polonia", "Finlandia", "Estonia", "Letonia", "Lituania", "Moldavia", "Kazajistán", "Uzbekistán", "Turkmenistán", "Kirguistán", "Tayikistán", "Georgia", "Armenia", "Azerbaiyán", "Alaska"],
       "Imperio Otomano": ["Turquía", "Grecia", "Bulgaria", "Serbia", "Bosnia y Herzegovina", "Montenegro", "Kosovo", "Macedonia del Norte", "Albania", "Rumania", "Hungría", "Croacia", "Eslovenia", "Eslovaquia", "Moldavia", "Chipre", "Egipto", "Libia", "Túnez", "Argelia", "Sudán", "Arabia Saudita", "Siria", "Líbano", "Irak", "Jordania", "Palestina", "Israel"],
       "Imperio Mongol": ["Mongolia", "China", "Corea", "Kazajistán", "Kirguistán", "Uzbekistán", "Turkmenistán", "Tayikistán", "Irán", "Irak", "Afganistán", "Pakistán", "India (norte)", "Rusia (sur)", "Turquía (parte)", "Siria"],
       "Imperio Japonés": ["Japón", "Corea del Sur", "Corea del Norte", "Taiwán", "China (parte)", "Manchuria", "Filipinas", "Indonesia", "Birmania", "Tailandia (parte)", "Vietnam", "Camboya", "Laos", "Malasia", "Papúa Nueva Guinea", "Islas del Pacífico"],
